@@ -75,9 +75,8 @@ func middlewareStack(closure *middlewareClosure) NextMiddlewareFunc {
 				// We could also 404 at this point: if so, run NotFound handlers and return.
 				theRoute, wildcardMap := calculateRoute(closure.RootRouter, req)
 
-				optionsMethod := req.Header.Get("Access-Control-Request-Method")
-
 				if theRoute == nil && httpMethod(req.Method) == httpMethodOptions {
+					optionsMethod := req.Header.Get("Access-Control-Request-Method")
 					methods := make([]string, 0, len(httpMethods))
 					var lastLeaf *pathLeaf
 					for _, method := range httpMethods {
